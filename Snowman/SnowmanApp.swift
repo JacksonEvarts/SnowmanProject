@@ -2,7 +2,7 @@
 //  SnowmanApp.swift
 //  Snowman
 //
-//  Created by Jack Evarts on 2/26/23.
+//  Created by Jackson Evarts on 2/26/23.
 //
 
 import SwiftUI
