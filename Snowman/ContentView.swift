@@ -3,7 +3,7 @@
 //  Snowman
 //
 //  Created by Eli Werstler, Jackson Evarts, Thomas Creighton on 2/26/23.
-//
+//  hangman but with snow.
 
 import SwiftUI
 
