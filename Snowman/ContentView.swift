@@ -136,7 +136,7 @@ func guess(letter: Character, word: String) -> [Int] {
     // TODO: Turn off the button of the guessed letter
     
     return positions
-} // Postcondition: Function returns and array of each position that the letter shows up in the answer. The button to click the letter is also turned off so it cannot be guesed again. 
+} // Postcondition: Function returns and array of each position that the letter shows up in the answer. The button to click the letter is also turned off so it cannot be guesed again.
 
 
 struct ContentView_Previews: PreviewProvider {
@@ -144,3 +144,4 @@ struct ContentView_Previews: PreviewProvider {
         ContentView()
     }
 }
+  
