@@ -10,6 +10,7 @@ import SwiftUI
 
 struct ContentView: View {
     @State var ans = "frost"
+    let letters = Array("ABCDEFGHIJKLMNOPQRSTUVWXYZ'")
     
     var body: some View {
         ZStack{
@@ -31,90 +32,19 @@ struct ContentView: View {
                     Text("_ _ _ _ _")
                 }
                 Spacer()
-                VStack{
-                    HStack{
-                        Button("Q"){
-                            print(" ")
-                        }
-                        Button("W"){
-                            print(" ")
-                        }
-                        Button("E"){
-                            print(" ")
-                        }
-                        Button("R"){
-                            print(" ")
-                        }
-                        Button("T"){
-                            print(" ")
-                        }
-                        Button("Y"){
-                            print(" ")
-                        }
-                        Button("U"){
-                            print(" ")
-                        }
-                        Button("I"){
-                            print(" ")
-                        }
-                        Button("O"){
-                            print(" ")
-                        }
-                        Button("P"){
-                            print(" ")
-                        }
-                    }
-                    HStack{
-                        Button("A"){
-                            print(" ")
-                        }
-                        Button("S"){
-                            print(" ")
-                        }
-                        Button("D"){
-                            print(" ")
-                        }
-                        Button("F"){
-                            print(" ")
-                        }
-                        Button("G"){
-                            print(" ")
-                        }
-                        Button("H"){
-                            print(" ")
-                        }
-                        Button("J"){
-                            print(" ")
-                        }
-                        Button("K"){
-                            print(" ")
-                        }
-                        Button("L"){
-                            print(" ")
-                        }
-                        
-                    }
-                    HStack{
-                        Button("Z"){
-                            print(" ")
-                        }
-                        Button("X"){
-                            print(" ")
-                        }
-                        Button("C"){
-                            print(" ")
-                        }
-                        Button("V"){
-                            print(" ")
-                        }
-                        Button("B"){
-                            print(" ")
-                        }
-                        Button("N"){
-                            print(" ")
-                        }
-                        Button("M"){
-                            print(" ")
+                VStack {
+                    ForEach(0..<3) { row in
+                        HStack {
+                            ForEach(0..<9) { column in
+                                let index = row * 9 + column
+                                if index < letters.count {
+                                    Button(String(letters[index])) {
+                                        guess(letter: letters[index], word: ans)
+                                    }
+                                } else {
+                                    Spacer()
+                                }
+                            }
                         }
                     }
                 }
@@ -122,8 +52,6 @@ struct ContentView: View {
             }
         }
     }
-    
-    
 }
 // Precondition: Function is passed a valid letter and word.
 func guess(letter: Character, word: String) -> [Int] {
