@@ -2,12 +2,11 @@
 //  ContentView.swift
 //  Snowman
 //
-//  Created by Jackson Evarts on 2/26/23.
+//  Created by Eli Werstler, Jackson Evarts, Thomas Creighton on 2/26/23.
 //
 
 import SwiftUI
 
-import SwiftUI
 
 struct ContentView: View {
     @State var ans = "frost"
@@ -123,21 +122,21 @@ struct ContentView: View {
             }
         }
     }
-    func guess(_ g:String) {
-        //for i in 1...ans.count{
-            //remove button
-            //if ans.subscript(i) == g{
-                //    Update shown ans
-            //}
-            
-            //else
-            //    update snowman
-            
-        //}
-    }
+    
+    
 }
-
-
+// Precondition: Function is passed a valid letter and word.
+func guess(letter: Character, word: String) -> [Int] {
+    var positions: [Int] = [] // Array to store each of the positions of the character
+    for (index, lookAt) in word.enumerated() {
+        if lookAt == letter { // Comparing the current letter of the answer with the guessed letter
+            positions.append(index) // If the guessed letter appears in the answer add the current index to the array
+        }
+    }
+    // TODO: Turn off the button of the guessed letter
+    
+    return positions
+} // Postcondition: Function returns and array of each position that the letter shows up in the answer. The button to click the letter is also turned off so it cannot be guesed again. 
 
 
 struct ContentView_Previews: PreviewProvider {
