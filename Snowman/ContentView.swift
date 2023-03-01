@@ -26,7 +26,6 @@ struct ContentView: View {
             Image("Scene").resizable().ignoresSafeArea().blur(radius: 3.0)
             VStack{
                 Spacer()
-                Text("The Snowman Will Generate Below.")
                 snowman()
                 Spacer()
                 HStack{ //For ans
@@ -108,6 +107,3 @@ struct ContentView_Previews: PreviewProvider {
         ContentView()
     }
 }
-  
-// Test Comments to Merge Two Branches
-// Look at all these test comments!
