@@ -11,6 +11,7 @@ import SwiftUI
 struct ContentView: View {
     var ans = "frosty"
     let letters = Array("ABCDEFGHIJKLMNOPQRSTUVWXYZ'")
+    @State var numWrong = 0
     @State var uncAnsPos: [Int] = [] // Array holding positions of correctly guessed letters
     @State var uncAns: String // Initialized as string of "_" but will slowly become the correct word
     init() {
@@ -26,7 +27,40 @@ struct ContentView: View {
             Image("Scene").resizable().ignoresSafeArea().blur(radius: 3.0)
             VStack{
                 Spacer()
-                snowman()
+                 VStack{ // For snowman
+                    if numWrong > 5{
+                        Image("Tophat").resizable().scaledToFit().aspectRatio(0.70, contentMode: .fit)
+                    } else {
+                        Spacer()   
+                    }
+                    if numWrong > 4{
+                        Image("Snowball").resizable().scaledToFit().aspectRatio(0.50, contentMode: .fit)
+                    } else {
+                        Spacer()   
+                    }
+                    HStack{
+                        if numWrong > 2{
+                            Image("Stick").resizable().scaledToFit().aspectRatio(0.50, contentMode: .fit).rotationEffect(Angle(degrees: 200), anchor: .center)
+                        } else {
+                            Spacer()   
+                        }
+                        if numWrong > 1{
+                            Image("Snowball").resizable().scaledToFit().aspectRatio(0.90, contentMode: .fit)
+                        } else {
+                            Spacer()   
+                        }
+                        if numWrong > 3{
+                            Image("Stick").resizable().scaledToFit().aspectRatio(0.50, contentMode: .fit).rotationEffect(Angle(degrees:350), anchor: .center)
+                        } else {
+                            Spacer()   
+                        }        
+                    }
+                    if numWrong > 0 {
+                        Image("Snowball").resizable().scaledToFit().aspectRatio(0.70, contentMode: .fit)
+                    } else {
+                        Spacer()   
+                    }
+                }
                 Spacer()
                 HStack{ //For ans
                     Text(uncAns)
@@ -37,9 +71,14 @@ struct ContentView: View {
                         HStack {
                             ForEach(0..<9) { column in
                                 let index = row * 9 + column
+                                var positions: [Int] = []
                                 if index < letters.count {
                                     Button(String(letters[index])) {
-                                            uncAnsPos += guess(letter: letters[index], word: ans) // Calling
+                                            positions = guess(letter: letters[index], word: ans)
+                                            uncAnsPos +=  positions // Calling
+                                            if positions.isEmpty{
+                                               numWrong = numWrong + 1
+                                            }
                                             uncAns = ansLine(uncAnsPositions: uncAnsPos, uncAnswers: uncAns, answer: ans)
                                             $0.isEnabled = false // Disable the button when it is pressed
                                     }
@@ -53,18 +92,6 @@ struct ContentView: View {
         }
     }
 }
-private func snowman() -> some View {
-    VStack{ // For snowman
-        Image("Tophat").resizable().scaledToFit().aspectRatio(0.70, contentMode: .fit)
-        Image("Snowball").resizable().scaledToFit().aspectRatio(0.50, contentMode: .fit)
-        HStack{
-            Image("Stick").resizable().scaledToFit().aspectRatio(0.50, contentMode: .fit).rotationEffect(Angle(degrees: 200), anchor: .center)
-            Image("Snowball").resizable().scaledToFit().aspectRatio(0.90, contentMode: .fit)
-            Image("Stick").resizable().scaledToFit().aspectRatio(0.50, contentMode: .fit).rotationEffect(Angle(degrees:350), anchor: .center)
-        }
-        Image("Snowball").resizable().scaledToFit().aspectRatio(0.70, contentMode: .fit)
-    }
-}
 
 // Precondition: Function is passed a valid letter and word.
 func guess(letter: Character, word: String) -> [Int] {
@@ -74,7 +101,6 @@ func guess(letter: Character, word: String) -> [Int] {
             positions.append(index) // If the guessed letter appears in the answer add the current index to the array
         }
     }
-    
     return positions
 } // Postcondition: Function returns an array of each position that the letter shows up in the answer.
 
