@@ -10,7 +10,7 @@ import SwiftUI
 
 struct ContentView: View {
     var ans = "frosty"
-    let letters = Array("abcdefghijklmnopqrstuvwxyz'")
+    let letters = Array("abcdefghijklmnopqrstuvwxyz'") // lowercase alphabet
     @State var uncAnsPos: [Int] = [] // Array holding positions of correctly guessed letters
     @State var uncAns: String // Initialized as string of "_" but will slowly become the correct word
     init() {
@@ -25,6 +25,7 @@ struct ContentView: View {
         ZStack{
             Image("Scene").resizable().ignoresSafeArea().blur(radius: 3.0)
             VStack{
+                Text("This is Bob.")
                 Spacer()
                  VStack{ // For snowman
                     if numWrong > 5{
