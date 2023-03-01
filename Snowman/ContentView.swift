@@ -14,14 +14,17 @@ struct ContentView: View {
     @State var uncAnsPos: [Int] = []
     @State var uncAns: String
     @State var numWrong = 0
+    @State var uncAnsPos: [Int] = [] // Array holding positions of correctly guessed letters
+    @State var uncAns: String // Initialized as string of "_" but will slowly become the correct word
     init() {
         var str = ""
         for _ in 0..<ans.count {
             str += "_ "
         }
         self.uncAns = str
-    }
-    //var buttonEnabled: [Bool] = Array(repeating: true, count: 27)
+    } // Postcondition: Initializes uncAns into a string with as many _ as there are letters in the final answer
+    
+    //var buttonEnabled: [Bool] = Array(repeating: true, count: 27) // Initializes an array of booleans that are all true for
     var body: some View {
         ZStack{
             Image("Scene").resizable().ignoresSafeArea().blur(radius: 3.0)
@@ -40,11 +43,9 @@ struct ContentView: View {
                                 let index = row * 9 + column
                                 if index < letters.count {
                                     Button(String(letters[index])) {
-                                        withAnimation {
-                                            uncAnsPos += guess(letter: letters[index], word: ans)
+                                            uncAnsPos += guess(letter: letters[index], word: ans) // Calling
                                             uncAns = ansLine(uncAnsPositions: uncAnsPos, uncAnswers: uncAns, answer: ans)
                                             //buttonDisabled[index] = false
-                                        }
                                         //.isenabled(buttonDisabled[index])
                                     }
                                 } else {
