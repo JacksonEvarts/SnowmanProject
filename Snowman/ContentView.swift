@@ -10,7 +10,7 @@ import SwiftUI
 
 struct ContentView: View {
     var ans = "frosty"
-    let letters = Array("ABCDEFGHIJKLMNOPQRSTUVWXYZ'")
+    let letters = Array("abcdefghijklmnopqrstuvwxyz'") // lowercase alphabet
     @State var numWrong = 0
     @State var uncAnsPos: [Int] = [] // Array holding positions of correctly guessed letters
     @State var uncAns: String // Initialized as string of "_" but will slowly become the correct word
@@ -26,6 +26,7 @@ struct ContentView: View {
         ZStack{
             Image("Scene").resizable().ignoresSafeArea().blur(radius: 3.0)
             VStack{
+                Text("This is Bob.")
                 Spacer()
                  VStack{ // For snowman
                     if numWrong > 5{
@@ -80,7 +81,7 @@ struct ContentView: View {
                                                numWrong = numWrong + 1
                                             }
                                             uncAns = ansLine(uncAnsPositions: uncAnsPos, uncAnswers: uncAns, answer: ans)
-                                            $0.isEnabled = false // Disable the button when it is pressed
+                                            //$0.isEnabled = false // Disable the button when it is pressed
                                     }
                                 }
                             }
