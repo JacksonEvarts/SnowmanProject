@@ -20,7 +20,7 @@ struct ContentView: View {
         }
         self.uncAns = str
     }
-    var buttonDisabled: [Bool] = Array(repeating: true, count: 27)
+    //var buttonEnabled: [Bool] = Array(repeating: true, count: 27)
     var body: some View {
         ZStack{
             Image("Scene").resizable().ignoresSafeArea().blur(radius: 3.0)
@@ -42,9 +42,9 @@ struct ContentView: View {
                                         withAnimation {
                                             uncAnsPos += guess(letter: letters[index], word: ans)
                                             uncAns = ansLine(uncAnsPositions: uncAnsPos, uncAnswers: uncAns, answer: ans)
-                                            buttonDisabled[index] = false
+                                            //buttonDisabled[index] = false
                                         }
-                                        .isenabled(buttonDisabled[index])
+                                        //.isenabled(buttonDisabled[index])
                                     }
                                 } else {
                                     Spacer()
