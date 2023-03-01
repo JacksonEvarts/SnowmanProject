@@ -11,6 +11,7 @@ import SwiftUI
 struct ContentView: View {
     var ans = "frosty"
     let letters = Array("abcdefghijklmnopqrstuvwxyz'") // lowercase alphabet
+    @State var numWrong = 0
     @State var uncAnsPos: [Int] = [] // Array holding positions of correctly guessed letters
     @State var uncAns: String // Initialized as string of "_" but will slowly become the correct word
     init() {
