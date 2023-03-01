@@ -20,13 +20,12 @@ struct ContentView: View {
         }
         self.uncAns = str
     }
-    var buttonDisabled: [Bool] = Array(repeating: false, count: 27)
+    //var buttonDisabled: [Bool] = Array(repeating: false, count: 27)
     var body: some View {
         ZStack{
             Image("Scene").resizable().ignoresSafeArea().blur(radius: 3.0)
             VStack{
                 Spacer()
-                Text("The Snowman Will Generate Below.")
                 snowman()
                 Spacer()
                 HStack{ //For ans
@@ -43,9 +42,9 @@ struct ContentView: View {
                                         withAnimation {
                                             uncAnsPos += guess(letter: letters[index], word: ans)
                                             uncAns = ansLine(uncAnsPositions: uncAnsPos, uncAnswers: uncAns, answer: ans)
-                                            buttonDisabled = true
+                                            //buttonDisabled = true
                                         }
-                                        .disabled(buttonDisabled)
+                                        //.disabled(buttonDisabled)
                                     }
                                 } else {
                                     Spacer()
@@ -106,6 +105,3 @@ struct ContentView_Previews: PreviewProvider {
         ContentView()
     }
 }
-  
-// Test Comments to Merge Two Branches
-// Look at all these test comments!
