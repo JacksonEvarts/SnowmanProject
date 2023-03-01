@@ -22,7 +22,6 @@ struct ContentView: View {
         self.uncAns = str
     } // Postcondition: Initializes uncAns into a string with as many _ as there are letters in the final answer
     
-    //var buttonEnabled: [Bool] = Array(repeating: true, count: 27) // Initializes an array of booleans that are all true for
     var body: some View {
         ZStack{
             Image("Scene").resizable().ignoresSafeArea().blur(radius: 3.0)
@@ -81,11 +80,8 @@ struct ContentView: View {
                                                numWrong = numWrong + 1
                                             }
                                             uncAns = ansLine(uncAnsPositions: uncAnsPos, uncAnswers: uncAns, answer: ans)
-                                            //buttonDisabled[index] = false
-                                        //.isenabled(buttonDisabled[index])
+                                            $0.isEnabled = false // Disable the button when it is pressed
                                     }
-                                } else {
-                                    Spacer()
                                 }
                             }
                         }
