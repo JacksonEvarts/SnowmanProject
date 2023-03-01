@@ -9,7 +9,7 @@ import SwiftUI
 
 
 struct ContentView: View {
-    var ans = "frosty"
+    var ans = "fruusty"
     let letters = Array("abcdefghijklmnopqrstuvwxyz'") // lowercase alphabet
     @State var numWrong = 0
     @State var uncAnsPos: [Int] = [] // Array holding positions of correctly guessed letters
@@ -110,7 +110,7 @@ func ansLine(uncAnsPositions: [Int], uncAnswers: String, answer: String) -> Stri
     var result = ""
         var index = 0
         for char in uncAnswers {
-            if char == "_" {
+            if char != " " {
                 if uncAnsPositions.contains(index) {
                     result.append(answer[answer.index(answer.startIndex, offsetBy: index)])
                 } else {
