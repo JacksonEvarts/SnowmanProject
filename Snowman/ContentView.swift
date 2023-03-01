@@ -13,6 +13,7 @@ struct ContentView: View {
     let letters = Array("ABCDEFGHIJKLMNOPQRSTUVWXYZ'")
     @State var uncAnsPos: [Int] = []
     @State var uncAns: String
+    @State var numWrong = 0
     init() {
         var str = ""
         for _ in 0..<ans.count {
@@ -58,18 +59,45 @@ struct ContentView: View {
         }
     }
 }
+// Preconditions: None.
 private func snowman() -> some View {
     VStack{ // For snowman
-        Image("Tophat").resizable().scaledToFit().aspectRatio(0.70, contentMode: .fit)
-        Image("Snowball").resizable().scaledToFit().aspectRatio(0.50, contentMode: .fit)
-        HStack{
-            Image("Stick").resizable().scaledToFit().aspectRatio(0.50, contentMode: .fit).rotationEffect(Angle(degrees: 200), anchor: .center)
-            Image("Snowball").resizable().scaledToFit().aspectRatio(0.90, contentMode: .fit)
-            Image("Stick").resizable().scaledToFit().aspectRatio(0.50, contentMode: .fit).rotationEffect(Angle(degrees:350), anchor: .center)
+        if numWrong > 5{
+            Image("Tophat").resizable().scaledToFit().aspectRatio(0.70, contentMode: .fit)
+        } else {
+            Spacer()   
         }
-        Image("Snowball").resizable().scaledToFit().aspectRatio(0.70, contentMode: .fit)
+        if numWrong > 4{
+            Image("Snowball").resizable().scaledToFit().aspectRatio(0.50, contentMode: .fit)
+        } else {
+            Spacer()   
+        }
+        HStack{
+            if numWrong > 2{
+                Image("Stick").resizable().scaledToFit().aspectRatio(0.50, contentMode: .fit).rotationEffect(Angle(degrees: 200), anchor: .center)
+            } else {
+                Spacer()   
+            }
+            if numWrong > 1{
+                Image("Snowball").resizable().scaledToFit().aspectRatio(0.90, contentMode: .fit)
+            } else {
+                Spacer()   
+            }
+            if numWrong > 3{
+                Image("Stick").resizable().scaledToFit().aspectRatio(0.50, contentMode: .fit).rotationEffect(Angle(degrees:350), anchor: .center)
+            } else {
+                Spacer()   
+            }        
+        }
+        if numWrong > 0 {
+            Image("Snowball").resizable().scaledToFit().aspectRatio(0.70, contentMode: .fit)
+        } else {
+            Spacer()   
+        }
     }
 }
+// Postconditions: Displays parts of the snowman according to the number of incorrect guesses.
+
 // Precondition: Function is passed a valid letter and word.
 func guess(letter: Character, word: String) -> [Int] {
     var positions: [Int] = [] // Array to store each of the positions of the character
@@ -77,6 +105,9 @@ func guess(letter: Character, word: String) -> [Int] {
         if lookAt == letter { // Comparing the current letter of the answer with the guessed letter
             positions.append(index) // If the guessed letter appears in the answer add the current index to the array
         }
+    }
+    if positions.isEmpty {
+        numWrong = numWrong + 1
     }
     
     return positions
