@@ -10,8 +10,7 @@ import SwiftUI
 
 struct ContentView: View {
     var ans = "frosty"
-    let letters = Array("ABCDEFGHIJKLMNOPQRSTUVWXYZ'")
-    @State var numWrong = 0
+    let letters = Array("abcdefghijklmnopqrstuvwxyz'")
     @State var uncAnsPos: [Int] = [] // Array holding positions of correctly guessed letters
     @State var uncAns: String // Initialized as string of "_" but will slowly become the correct word
     init() {
@@ -80,7 +79,7 @@ struct ContentView: View {
                                                numWrong = numWrong + 1
                                             }
                                             uncAns = ansLine(uncAnsPositions: uncAnsPos, uncAnswers: uncAns, answer: ans)
-                                            $0.isEnabled = false // Disable the button when it is pressed
+                                            //$0.isEnabled = false // Disable the button when it is pressed
                                     }
                                 }
                             }
