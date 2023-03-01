@@ -42,9 +42,9 @@ struct ContentView: View {
                                         withAnimation {
                                             uncAnsPos += guess(letter: letters[index], word: ans)
                                             uncAns = ansLine(uncAnsPositions: uncAnsPos, uncAnswers: uncAns, answer: ans)
-                                            buttonDisabled = true
+                                            buttonDisabled[index] = true
                                         }
-                                        .disabled(buttonDisabled)
+                                        .disabled(buttonDisabled[index])
                                     }
                                 } else {
                                     Spacer()
@@ -83,6 +83,7 @@ func guess(letter: Character, word: String) -> [Int] {
     return positions
 } // Postcondition: Function returns and array of each position that the letter shows up in the answer. The button to click the letter is also turned off so it cannot be guesed again.
 
+// Function takes array of positions of guessed values within answer, a string showing blank spaces and previously uncovered letters, and an answer string.
 func ansLine(uncAnsPositions: [Int], uncAnswers: String, answer: String) -> String {
     var result = ""
         var index = 0
@@ -100,6 +101,7 @@ func ansLine(uncAnsPositions: [Int], uncAnswers: String, answer: String) -> Stri
         }
         return result
 }
+// Returns updated string of blank spaces (underscores) and 
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
