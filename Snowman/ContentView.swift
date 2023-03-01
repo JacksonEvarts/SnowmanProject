@@ -26,6 +26,7 @@ struct ContentView: View {
             Image("Scene").resizable().ignoresSafeArea().blur(radius: 3.0)
             VStack{
                 Spacer()
+                Text("The Snowman Will Generate Below.")
                 snowman()
                 Spacer()
                 HStack{ //For ans
@@ -59,7 +60,7 @@ struct ContentView: View {
     }
 }
 private func snowman() -> some View {
-    VStack{ //for snowman
+    VStack{ // For snowman
         Image("Tophat").resizable().scaledToFit().aspectRatio(0.70, contentMode: .fit)
         Image("Snowball").resizable().scaledToFit().aspectRatio(0.50, contentMode: .fit)
         HStack{
@@ -78,10 +79,9 @@ func guess(letter: Character, word: String) -> [Int] {
             positions.append(index) // If the guessed letter appears in the answer add the current index to the array
         }
     }
-    // TODO: Turn off the button of the guessed letter
     
     return positions
-} // Postcondition: Function returns and array of each position that the letter shows up in the answer. The button to click the letter is also turned off so it cannot be guesed again.
+} // Postcondition: Function returns an array of each position that the letter shows up in the answer.
 
 // Function takes array of positions of guessed values within answer, a string showing blank spaces and previously uncovered letters, and an answer string.
 func ansLine(uncAnsPositions: [Int], uncAnswers: String, answer: String) -> String {
@@ -109,3 +109,5 @@ struct ContentView_Previews: PreviewProvider {
     }
 }
   
+// Test Comments to Merge Two Branches
+// Look at all these test comments!
