@@ -80,7 +80,7 @@ func guess(letter: Character, word: String) -> [Int] {
     }
     
     return positions
-} // Postcondition: Function returns an array of each position that the letter shows up in the answer. 
+} // Postcondition: Function returns an array of each position that the letter shows up in the answer.
 
 func ansLine(uncAnsPositions: [Int], uncAnswers: String, answer: String) -> String {
     var result = ""
@@ -106,3 +106,5 @@ struct ContentView_Previews: PreviewProvider {
     }
 }
   
+// Test Comments to Merge Two Branches
+// Look at all these test comments! 
