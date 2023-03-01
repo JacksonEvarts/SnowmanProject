@@ -14,6 +14,8 @@ struct ContentView: View {
     @State var numWrong = 0
     @State var uncAnsPos: [Int] = [] // Array holding positions of correctly guessed letters
     @State var uncAns: String // Initialized as string of "_" but will slowly become the correct word
+    //@State var guessed: [String] = [] // Array holding characters that have been guessed (right or wrong)
+    // TODO: Make this scroller work ^
     init() {
         var str = ""
         for _ in 0..<ans.count {
@@ -24,8 +26,24 @@ struct ContentView: View {
     
     var body: some View {
         ZStack{
+            // TODO: Import the scene image so there is a background to the snowman
             Image("Scene").resizable().ignoresSafeArea().blur(radius: 3.0)
+            
             VStack{
+                /*
+                 // TODO: Make this scroller work v
+                ScrollView(.horizontal) {
+                    HStack(spacing: 10){
+                        Text("Guessed letters so far: ")
+                        for item in guessed{
+                            Text(item + " ")
+                                .frame(width: 10, height: 10)
+                                .bold()
+                        }
+                    }
+                }//.scaledToFit()
+                */
+                 
                 Text("This is Bob.")
                 Spacer()
                  VStack{ // For snowman
@@ -63,11 +81,11 @@ struct ContentView: View {
                     }
                 }
                 Spacer()
-                HStack{ //For ans
+                HStack{
                     Text(uncAns)
                 }
                 Spacer()
-                VStack {
+                VStack { // Keyboard VStack
                     ForEach(0..<3) { row in
                         HStack {
                             ForEach(0..<9) { column in
@@ -75,19 +93,22 @@ struct ContentView: View {
                                 var positions: [Int] = []
                                 if index < letters.count {
                                     Button(String(letters[index])) {
-                                            positions = guess(letter: letters[index], word: ans)
-                                            uncAnsPos +=  positions // Calling
-                                            if positions.isEmpty{
-                                               numWrong = numWrong + 1
-                                            }
-                                            uncAns = ansLine(uncAnsPositions: uncAnsPos, uncAnswers: uncAns, answer: ans)
-                                            //$0.isEnabled = false // Disable the button when it is pressed
+                                        // guessed.append(String(letters[index])) // Adding guessed letter to the array desplayed
+                                        // TODO: Make side scroller work ^
+                                        positions = guess(letter: letters[index], word: ans)
+                                        uncAnsPos +=  positions // Calling
+                                        if positions.isEmpty{
+                                            numWrong = numWrong + 1
+                                        }
+                                        uncAns = ansLine(uncAnsPositions: uncAnsPos, uncAnswers: uncAns, answer: ans)
+                                        //$0.isEnabled = false // Disable the button when it is pressed
+                                        // TODO: Make this button disablement work ^
                                     }
                                 }
                             }
                         }
                     }
-                }
+                } // End of keyboard VStack
                 
             }
         }
@@ -105,7 +126,7 @@ func guess(letter: Character, word: String) -> [Int] {
     return positions
 } // Postcondition: Function returns an array of each position that the letter shows up in the answer.
 
-// Function takes array of positions of guessed values within answer, a string showing blank spaces and previously uncovered letters, and an answer string.
+// Precondition: Function takes array of positions of guessed values within answer, a string showing blank spaces and previously uncovered letters, and an answer string.
 func ansLine(uncAnsPositions: [Int], uncAnswers: String, answer: String) -> String {
     var result = ""
         var index = 0
@@ -122,8 +143,7 @@ func ansLine(uncAnsPositions: [Int], uncAnswers: String, answer: String) -> Stri
             }
         }
         return result
-}
-// Returns updated string of blank spaces (underscores) and uncovered letters in approprate positions.
+} // Postcondition: Returns updated string of blank spaces (underscores) and uncovered letters in approprate positions.
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
