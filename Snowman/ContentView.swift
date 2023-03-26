@@ -10,7 +10,7 @@ import SwiftUI
 
 struct ContentView: View {
     var wordList = "dictionary.txt"
-    var ans = "FROOSTY"
+    var ans = "FROSTY"
     let letters = Array("ABCDEFGHIJKLMNOPQRSTUVWXYZ'")
     @State var win = false
     @State var loss = false
@@ -31,12 +31,24 @@ struct ContentView: View {
             Image("Scene").resizable().ignoresSafeArea().blur(radius: 3.0)
             VStack{
                 Spacer()
-                 VStack{ // For snowman
+                VStack{ // For snowman
                      if loss == true {
-                         Button("You Lost!")
-                     }
-                     else if win == true {
-                         Button("You Win")
+                         Button("You Lost! - Click to Restart") {
+                             loss = false
+                             numWrong = 0
+                             //ans = newWord(wordList)
+                         }
+                     } else if win == true {
+                         Button("You Win! - Click to Restart") {
+                             win = false
+                             numWrong = 0
+                             //ans = newWord(wordList)
+                         }
+                     } else {
+                         Button("Click to Restart") {
+                             numWrong = 0
+                             //ans = newWord(wordList)
+                         }
                      }
                      Image("Tophat").resizable().scaledToFit().aspectRatio(0.70, contentMode: .fit).opacity(numWrong > 5 ? 1.0 : 0.0)
                      Image("Snowball").resizable().scaledToFit().aspectRatio(0.50, contentMode: .fit).opacity(numWrong > 4 ? 1.0 : 0.0)
@@ -69,7 +81,7 @@ struct ContentView: View {
                                                 }
                                             }
                                             uncAns = ansLine(uncAnsPositions: uncAnsPos, uncAnswers: uncAns, answer: ans)
-                                            win = checkWin(uncAns)
+                                        win = checkWin(uncAns: uncAns)
                                             buttonDisabledStates[index] = true // Disable the button when it is pressed
                                     }
                                     .disabled(buttonDisabledStates[index])
@@ -113,7 +125,17 @@ func ansLine(uncAnsPositions: [Int], uncAnswers: String, answer: String) -> Stri
         return result
 }
 // Returns updated string of blank spaces (underscores) and uncovered letters in approprate positions.
-func checkWin(uncAns: String) ->
+func checkWin(uncAns: String) -> Bool {
+    for char in uncAns {
+        if char == "_" {
+            return false
+        }
+    }
+    return true
+}
+//func newWord(_ wordList: String) -> String {
+    
+//}
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
