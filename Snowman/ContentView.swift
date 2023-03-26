@@ -142,14 +142,22 @@ func checkWin(uncAns: String) -> Bool {
         }
     }
     return true
-}
+} // Postcondition: Returns false if there are still letters to guess (there are underscores), true if there are none left and the user wins
 
-// Returns false if there are still letters to guess (there are underscores), true if there are none left and the user wins
-
-//func newWord(_ wordList: String) -> String {
-
+/*
+func newWord() -> String { // Precondition: dictionary.txt is a file within Assets
+    if let path = Bundle.main.path(forResource: "dictionary", ofType: "txt") {
+        do {
+            let words = try String(contentsOfFile: path, encoding: .utf8) // Creating
+        } catch {
+            print("Error reading file: \(error)")
+        }
+    }
     
+    //TODO: Select a random line of the string "words"
+
 } // Postcondition: returns a new word from the dictionary
+*/
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
