@@ -9,8 +9,11 @@ import SwiftUI
 
 
 struct ContentView: View {
+    var wordList = "dictionary.txt"
     var ans = "FROOSTY"
-    let letters = Array("ABCDEFGHIJKLMNOPQRSTUVWXYZ'-")
+    let letters = Array("ABCDEFGHIJKLMNOPQRSTUVWXYZ'")
+    @State var win = false
+    @State var loss = false
     @State var numWrong = 0
     @State var uncAnsPos: [Int] = [] // Array holding positions of correctly guessed letters
     @State var uncAns: String // Initialized as string of "_" but will slowly become the correct word
@@ -29,18 +32,20 @@ struct ContentView: View {
             VStack{
                 Spacer()
                  VStack{ // For snowman
-                    Image("Tophat").resizable().scaledToFit().aspectRatio(0.70, contentMode: .fit).opacity(numWrong > 5 ? 1.0 : 0.0)
-                    Image("Snowball").resizable().scaledToFit().aspectRatio(0.50, contentMode: .fit).opacity(numWrong > 4 ? 1.0 : 0.0)
-                    HStack{
-                        Image("Stick").resizable().scaledToFit().aspectRatio(0.50, contentMode: .fit).rotationEffect(Angle(degrees: 200), anchor: .center).opacity(numWrong > 2 ? 1.0 : 0.0)
-                        Image("Snowball").resizable().scaledToFit().aspectRatio(0.90, contentMode: .fit).opacity(numWrong > 1 ? 1.0 : 0.0)
-                        Image("Stick").resizable().scaledToFit().aspectRatio(0.50, contentMode: .fit).rotationEffect(Angle(degrees:350), anchor: .center).opacity(numWrong > 3 ? 1.0 : 0.0)
-                    }
-                    if numWrong > 0 {
-                        Image("Snowball").resizable().scaledToFit().aspectRatio(0.70, contentMode: .fit)
-                    } else {
-                        Spacer()   
-                    }
+                     if loss == true {
+                         Button("You Lost!")
+                     }
+                     else if win == true {
+                         Button("You Win")
+                     }
+                     Image("Tophat").resizable().scaledToFit().aspectRatio(0.70, contentMode: .fit).opacity(numWrong > 5 ? 1.0 : 0.0)
+                     Image("Snowball").resizable().scaledToFit().aspectRatio(0.50, contentMode: .fit).opacity(numWrong > 4 ? 1.0 : 0.0)
+                     HStack{
+                         Image("Stick").resizable().scaledToFit().aspectRatio(0.50, contentMode: .fit).rotationEffect(Angle(degrees: 200), anchor: .center).opacity(numWrong > 2 ? 1.0 : 0.0)
+                         Image("Snowball").resizable().scaledToFit().aspectRatio(0.90, contentMode: .fit).opacity(numWrong > 1 ? 1.0 : 0.0)
+                         Image("Stick").resizable().scaledToFit().aspectRatio(0.50, contentMode: .fit).rotationEffect(Angle(degrees:350), anchor: .center).opacity(numWrong > 3 ? 1.0 : 0.0)
+                     }
+                     Image("Snowball").resizable().scaledToFit().aspectRatio(0.70, contentMode: .fit).opacity(numWrong > 0 ? 1.0 : 0.0)
                 }
                 Spacer()
                 HStack{ //For ans
@@ -48,10 +53,10 @@ struct ContentView: View {
                 }
                 Spacer()
                 VStack {
-                    ForEach(0..<4) { row in
+                    ForEach(0..<3) { row in
                         HStack {
-                            ForEach(0..<7) { column in
-                                let index = row * 7 + column
+                            ForEach(0..<9) { column in
+                                let index = row * 9 + column
                                 var positions: [Int] = []
                                 if index < letters.count {
                                     Button(String(letters[index])) {
@@ -59,8 +64,12 @@ struct ContentView: View {
                                             uncAnsPos +=  positions // Calling
                                             if positions.isEmpty{
                                                numWrong = numWrong + 1
+                                                if numWrong > 5 {
+                                                    loss = true
+                                                }
                                             }
                                             uncAns = ansLine(uncAnsPositions: uncAnsPos, uncAnswers: uncAns, answer: ans)
+                                            win = checkWin(uncAns)
                                             buttonDisabledStates[index] = true // Disable the button when it is pressed
                                     }
                                     .disabled(buttonDisabledStates[index])
@@ -104,6 +113,7 @@ func ansLine(uncAnsPositions: [Int], uncAnswers: String, answer: String) -> Stri
         return result
 }
 // Returns updated string of blank spaces (underscores) and uncovered letters in approprate positions.
+func checkWin(uncAns: String) ->
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
