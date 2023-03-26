@@ -17,7 +17,7 @@ struct ContentView: View {
     @State var numWrong = 0
     @State var uncAnsPos: [Int] = [] // Array holding positions of correctly guessed letters
     @State var uncAns: String // Initialized as string of "_" but will slowly become the correct word
-    @State var buttonDisabledStates = Array(repeating: false, count: 28) // Initializes array of disabled states for each button
+    @State var buttonDisabledStates: [Bool] = Array(repeating: false, count: 27) // Initializes array of disabled states for each button
     init() {
         var str = ""
         for _ in 0..<ans.count {
@@ -36,17 +36,21 @@ struct ContentView: View {
                          Button("You Lost! - Click to Restart") {
                              loss = false
                              numWrong = 0
+                             uncAnsPos = []
+                             buttonDisabledStates = Array(repeating: false, count: 27)
                              //ans = newWord(wordList)
                          }
                      } else if win == true {
                          Button("You Win! - Click to Restart") {
                              win = false
                              numWrong = 0
+                             buttonDisabledStates = Array(repeating: false, count: 27)
                              //ans = newWord(wordList)
                          }
                      } else {
                          Button("Click to Restart") {
                              numWrong = 0
+                             buttonDisabledStates = Array(repeating: false, count: 27)
                              //ans = newWord(wordList)
                          }
                      }
@@ -72,17 +76,21 @@ struct ContentView: View {
                                 var positions: [Int] = []
                                 if index < letters.count {
                                     Button(String(letters[index])) {
-                                            positions = guess(letter: letters[index], word: ans)
-                                            uncAnsPos +=  positions // Calling
-                                            if positions.isEmpty{
-                                               numWrong = numWrong + 1
-                                                if numWrong > 5 {
-                                                    loss = true
+                                        positions = guess(letter: letters[index], word: ans)
+                                        uncAnsPos +=  positions // Calling
+                                        if positions.isEmpty{
+                                            numWrong = numWrong + 1
+                                            if numWrong > 5 {
+                                                loss = true
+                                                buttonDisabledStates = Array(repeating: true, count: 27)
                                                 }
-                                            }
-                                            uncAns = ansLine(uncAnsPositions: uncAnsPos, uncAnswers: uncAns, answer: ans)
+                                        }
+                                        uncAns = ansLine(uncAnsPositions: uncAnsPos, uncAnswers: uncAns, answer: ans)
                                         win = checkWin(uncAns: uncAns)
-                                            buttonDisabledStates[index] = true // Disable the button when it is pressed
+                                        if win {
+                                            buttonDisabledStates = Array(repeating: true, count: 27)
+                                        }
+                                        buttonDisabledStates[index] = true // Disable the button when it is pressed
                                     }
                                     .disabled(buttonDisabledStates[index])
                                 }
@@ -125,6 +133,8 @@ func ansLine(uncAnsPositions: [Int], uncAnswers: String, answer: String) -> Stri
         return result
 }
 // Returns updated string of blank spaces (underscores) and uncovered letters in approprate positions.
+
+// Function takes the current answer line
 func checkWin(uncAns: String) -> Bool {
     for char in uncAns {
         if char == "_" {
@@ -133,6 +143,8 @@ func checkWin(uncAns: String) -> Bool {
     }
     return true
 }
+// Returns false if there are still letters to guess (there are underscores), true if there are none left and the user wins
+
 //func newWord(_ wordList: String) -> String {
     
 //}
