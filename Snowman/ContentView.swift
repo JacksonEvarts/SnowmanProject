@@ -143,11 +143,13 @@ func checkWin(uncAns: String) -> Bool {
     }
     return true
 }
+
 // Returns false if there are still letters to guess (there are underscores), true if there are none left and the user wins
 
 //func newWord(_ wordList: String) -> String {
+
     
-//}
+} // Postcondition: returns a new word from the dictionary
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
