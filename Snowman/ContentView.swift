@@ -133,9 +133,13 @@ func checkWin(uncAns: String) -> Bool {
     }
     return true
 }
-//func newWord(_ wordList: String) -> String {
+func newWord(_ wordList: String) -> String {
+    var words = (contentsOf: "https:github.com/JacksonEvarts/SnowmanProject/blob/3a254ed4483aee0d4309f52c23e0497cbbe3f563/dictionary.txt") // Creating
+
     
-//}
+// TODO: Create function
+    
+} // Postcondition: returns a new word from the dictionary
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
