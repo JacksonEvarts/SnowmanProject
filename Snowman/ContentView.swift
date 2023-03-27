@@ -42,26 +42,19 @@ struct ContentView: View {
                 Spacer()
                 VStack{ // For snowman
                     if loss == true {
-                        Button("You Lost! - Click to Restart") {
-                            loss = false
-                            numWrong = 0
-                            uncAnsPos = []
-                            buttonDisabledStates = Array(repeating: false, count: 27)
-                            newWord()
-                        }
+                        Text("You Lose.")
                     } else if win == true {
-                        Button("You Win! - Click to Restart") {
-                            win = false
-                            numWrong = 0
-                            buttonDisabledStates = Array(repeating: false, count: 27)
-                            newWord()
-                        }
+                        Text("You Win!")
                     } else {
-                        Button("Click to Restart") {
-                            numWrong = 0
-                            buttonDisabledStates = Array(repeating: false, count: 27)
-                            newWord()
-                        }
+                        Text("")
+                    }
+                    Button("Click to Restart") {
+                        win = false
+                        loss = false
+                        numWrong = 0
+                        buttonDisabledStates = Array(repeating: false, count: 27)
+                        newWord()
+                        uncAnsPos = []
                     }
                     Image("Tophat").resizable().scaledToFit().aspectRatio(0.70, contentMode: .fit).opacity(numWrong > 5 ? 1.0 : 0.0)
                     Image("Snowball").resizable().scaledToFit().aspectRatio(0.50, contentMode: .fit).opacity(numWrong > 4 ? 1.0 : 0.0)
@@ -74,7 +67,11 @@ struct ContentView: View {
                 }
                 Spacer()
                 HStack{ //For ans
-                    Text(uncAns)
+                    if loss {
+                        Text(ans)
+                    } else {
+                        Text(uncAns)
+                    }
                 }
                 Spacer()
                 VStack {
